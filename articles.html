@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>記事一覧｜旅ステータスラボ</title>
+<meta name="description" content="旅ステータスラボの記事一覧。ステータス制度・修行、特典航空券・マイルの使い方などのカテゴリ別に、キーワードで絞り込みもできます。">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <div class="name"><a href="index.html">旅ステータスラボ</a></div>
+  <nav class="main">
+    <a href="articles.html">記事一覧</a>
+    <a href="tools/mile-value.html">計算ツール</a>
+  </nav>
+</header>
+<main>
+  <h1>記事一覧</h1>
+  <p>カテゴリ別に並べています。キーワードで絞り込むこともできます。</p>
+  <div class="searchbox">
+    <input type="search" id="q" placeholder="キーワードで記事を探す（例：JGC、マイル、維持）" aria-label="記事を検索">
+    <p class="src" id="count"></p>
+  </div>
+
+  <section class="cluster">
+    <h2>ステータス制度・修行</h2>
+    <a class="card" href="articles/jgc-nyukai-joken.html" data-kw="JAL JGC Life Status ポイント 入会条件 サファイア FLY ON">
+      <strong>JGCの入会条件は今どうなっているか — Life Status 1,500ポイントとFLY ONの違い</strong>
+      <span>現在の入会資格、Starグレード、手続きの流れ、よくある誤解までを公式情報で確認しました。</span>
+      <span class="src">制度確認｜2026年11月5日</span>
+    </a>
+    <a class="card" href="articles/status-iji-handan.html" data-kw="ステータス 維持 判断 FOP 修行 サファイア 残り単価 年末">
+      <strong>ステータス維持に「あといくらまで」なら払ってよいか — 判断の枠組み</strong>
+      <span>便益の金額換算と「残り単価」で決める方法を、モデルケースの実数つきで整理しました。</span>
+      <span class="src">判断の枠組み｜2026年11月5日</span>
+    </a>
+  </section>
+
+  <section class="cluster">
+    <h2>特典航空券・マイル</h2>
+    <a class="card" href="articles/mile-value-keisan.html" data-kw="マイル 価値 特典航空券 計算 お得 獲得コスト">
+      <strong>特典航空券は本当にお得か — 1マイルの価値を計算する方法</strong>
+      <span>計算式、具体例、自分の獲得コストの出し方、よくある失敗まで。計算ツールにそのままつながります。</span>
+      <span class="src">費用試算｜2026年11月5日</span>
+    </a>
+  </section>
+
+  <p class="src" id="noresult" style="display:none">該当する記事がありません。キーワードを変えてお試しください。</p>
+</main>
+<footer class="site">
+  <a href="about.html">運営者情報・広告方針</a><a href="privacy.html">プライバシーポリシー</a><a href="contact.html">お問い合わせ</a>
+  <div>© 旅ステータスラボ</div>
+</footer>
+<script>
+(function(){
+  var q = document.getElementById('q');
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.cluster'));
+  var count = document.getElementById('count');
+  var noresult = document.getElementById('noresult');
+  function apply(){
+    var words = q.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    var visible = 0;
+    cards.forEach(function(c){
+      var text = (c.textContent + ' ' + (c.getAttribute('data-kw')||'')).toLowerCase();
+      var hit = words.every(function(w){ return text.indexOf(w) !== -1; });
+      c.style.display = hit ? '' : 'none';
+      if (hit) visible++;
+    });
+    sections.forEach(function(s){
+      var any = Array.prototype.some.call(s.querySelectorAll('.card'), function(c){ return c.style.display !== 'none'; });
+      s.style.display = any ? '' : 'none';
+    });
+    count.textContent = words.length ? visible + ' 件の記事が見つかりました' : '全 ' + cards.length + ' 記事';
+    noresult.style.display = visible ? 'none' : '';
+  }
+  q.addEventListener('input', apply);
+  apply();
+})();
+</script>
+</body>
+</html>
