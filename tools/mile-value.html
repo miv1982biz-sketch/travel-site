@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>マイル価値の計算ツール｜旅とステータスの計算室</title>
+<meta name="description" content="特典航空券に必要なマイルと現金価格から、1マイルあたりの価値を計算します。マイルを使うべきか、貯めるコストに見合うかを数字で判断するためのツールです。">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="site">
+  <div class="name">旅とステータスの計算室</div>
+  <nav class="main">
+    <a href="../index.html">トップ</a>
+    <a href="mile-value.html">計算ツール</a>
+    <a href="../about.html">運営者情報</a>
+    <a href="../ad-policy.html">広告・編集方針</a>
+  </nav>
+</header>
+<main>
+  <h1>マイル価値の計算ツール</h1>
+  <p>特典航空券が「お得」かどうかは、<strong>1マイルあたり何円の価値で使えるか</strong>で決まります。同じ区間を現金で買った場合の価格と比べることで、その価値が出ます。計算の考え方は<a href="../articles/mile-value-keisan.html">こちらの記事</a>で解説しています。</p>
+
+  <label>特典航空券に必要なマイル（マイル）
+    <input type="number" id="miles" inputmode="numeric" placeholder="例：25000">
+  </label>
+  <label>同じ区間・同じ便を現金で買った場合の価格（円）
+    <input type="number" id="cash" inputmode="numeric" placeholder="例：80000">
+  </label>
+  <label>特典航空券でも別途支払う現金（空港税・燃油サーチャージ等）（円）
+    <input type="number" id="extra" inputmode="numeric" placeholder="例：12000">
+  </label>
+  <label>あなたのマイル獲得コスト（任意：1マイルを貯めるのにかかった実質コスト、円/マイル）
+    <input type="number" id="cost" inputmode="decimal" placeholder="例：1.5（分からなければ空欄）">
+  </label>
+  <button class="calc" onclick="calc()">計算する</button>
+
+  <div class="result" id="result">
+    <div>この使い方での1マイルの価値</div>
+    <div class="big" id="perMile">—</div>
+    <p id="verdict"></p>
+    <p id="costLine"></p>
+  </div>
+
+  <h2>計算式</h2>
+  <p>1マイルの価値 ＝（現金価格 − 特典でも払う現金）÷ 必要マイル</p>
+  <p>入力した数値はサーバーに送信されません（ブラウザ内で計算しています）。</p>
+  <h2>目安の読み方</h2>
+  <ul>
+    <li>国際線の上位クラスでは1マイル＝3円を超える使い方も珍しくありません。逆に国内線の割引運賃と比べると1円を切ることもあります。</li>
+    <li>大事なのは「世間の目安」ではなく、<strong>自分の獲得コストより高い価値で使えているか</strong>です。獲得コスト（カード決済で貯めた場合の実質単価など）を入れて比べると判断がぶれません。</li>
+  </ul>
+</main>
+<footer class="site">
+  <a href="../about.html">運営者情報</a><a href="../ad-policy.html">広告・編集方針</a><a href="../privacy.html">プライバシーポリシー</a><a href="../contact.html">お問い合わせ</a>
+  <div>© 旅とステータスの計算室</div>
+</footer>
+<script>
+function fmt(n){ return n.toLocaleString('ja-JP'); }
+function calc(){
+  var miles = parseFloat(document.getElementById('miles').value);
+  var cash = parseFloat(document.getElementById('cash').value);
+  var extra = parseFloat(document.getElementById('extra').value) || 0;
+  var cost = parseFloat(document.getElementById('cost').value);
+  var box = document.getElementById('result');
+  if(!miles || miles<=0 || !cash || cash<=0){ alert('必要マイルと現金価格を入力してください。'); return; }
+  var value = (cash - extra) / miles;
+  document.getElementById('perMile').textContent = '約 ' + value.toFixed(2) + ' 円／マイル';
+  var v = '';
+  if(value >= 3){ v = '現金価格に対してかなり有利な使い方です。空席さえあれば、マイルを使う価値が高いケースです。'; }
+  else if(value >= 2){ v = '有利な使い方の目安（2円以上）を超えています。多くの人にとって「使ってよい」ラインです。'; }
+  else if(value >= 1){ v = '1マイル＝1円以上ではありますが、飛びつく水準ではありません。有効期限が近い場合や、現金支出を抑えたい場合に検討する水準です。'; }
+  else { v = '1円を下回っています。現金で買ったほうが得な可能性が高い使い方です。別の区間・時期で使うことを検討してください。'; }
+  document.getElementById('verdict').textContent = v;
+  var cl = '';
+  if(cost && cost > 0){
+    var gain = (value - cost) * miles;
+    cl = 'あなたの獲得コスト（' + cost + '円/マイル）と比べると、この使い方は1マイルあたり ' + (value-cost).toFixed(2) + ' 円の' + (gain>=0 ? 'プラス' : 'マイナス') + 'で、便全体では約 ' + fmt(Math.round(Math.abs(gain))) + ' 円分の' + (gain>=0 ? '得' : '損') + 'です。';
+  }
+  document.getElementById('costLine').textContent = cl;
+  box.style.display = 'block';
+}
+</script>
+</body>
+</html>
