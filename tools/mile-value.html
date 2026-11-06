@@ -44,6 +44,11 @@
     <div class="big" id="perMile">—</div>
     <p id="verdict"></p>
     <p id="costLine"></p>
+    <div class="gauge" style="margin-top:12px">
+      <div class="bar"><div class="seg" style="width:25%;background:#dbe4ee"></div><div class="seg" style="width:25%;background:#9dbfdd"></div><div class="seg" style="width:25%;background:#5b8cc0"></div><div class="seg" style="width:25%;background:#0b5394"></div></div>
+      <div class="track"><div class="mark" id="gmark"></div></div>
+      <div class="cap"><span>0円</span><span>1円</span><span>2円</span><span>3円</span><span>4円〜</span></div>
+    </div>
   </div>
 
   <h2>計算式</h2>
@@ -83,6 +88,9 @@ function calc(){
     cl = 'あなたの獲得コスト（' + cost + '円/マイル）と比べると、この使い方は1マイルあたり ' + (value-cost).toFixed(2) + ' 円の' + (gain>=0 ? 'プラス' : 'マイナス') + 'で、便全体では約 ' + fmt(Math.round(Math.abs(gain))) + ' 円分の' + (gain>=0 ? '得' : '損') + 'です。';
   }
   document.getElementById('costLine').textContent = cl;
+  var gm = document.getElementById('gmark');
+  gm.style.display = 'block';
+  gm.style.left = (Math.min(Math.max(value, 0), 4) / 4 * 100) + '%';
   box.style.display = 'block';
 }
 </script>
