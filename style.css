@@ -84,3 +84,4 @@ footer.site a { color:var(--sub); margin:0 9px; text-decoration:none; }
 footer.site a:hover { text-decoration:underline; }
 footer.site div { margin-top:10px; }
 .src { font-size:13px; color:var(--sub); }
+footer.site .sister{margin-top:10px;font-size:13px;}
