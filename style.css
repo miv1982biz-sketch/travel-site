@@ -108,3 +108,8 @@ a.thumbrow:hover .t { color:var(--accent); text-decoration:underline; }
 .gauge .cap { display:flex; justify-content:space-between; font-size:12px; color:var(--sub); }
 .card.thumbrow { border:none; border-bottom:1px solid var(--line); border-radius:0; padding:13px 0; margin:0; background:transparent; display:flex; }
 .thumbrow .txt { display:block; }
+
+/* 広告ボックス（記事内の広告リンク設置用） */
+.adbox{border:2px solid #0b5394;padding:16px;margin:24px 0;text-align:center}
+.adbox .src{text-align:left}
+.adbox img{max-width:100%;height:auto}
