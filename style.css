@@ -113,3 +113,6 @@ a.thumbrow:hover .t { color:var(--accent); text-decoration:underline; }
 .adbox{border:2px solid #0b5394;padding:16px;margin:24px 0;text-align:center}
 .adbox .src{text-align:left}
 .adbox img{max-width:100%;height:auto}
+
+.share{margin:28px 0 8px;padding:12px 0;border-top:1px solid #ccc;font-size:14px}
+.share a{margin-right:14px}
