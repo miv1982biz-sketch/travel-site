@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FLY ON ポイント到達コスト試算ツール｜旅ステータスラボ</title>
+<meta name="description" content="JALのFLY ON ポイント（FOP）で目標ステータスまであと何便・いくらかかるかを試算します。現在のFOPと想定する1便の条件を入れると、不足FOP、必要便数、月あたりの搭乗ペース、FOP単価が出ます。基準はJAL公式のFLY ON プログラムで2026年11月8日に確認しました。">
+<link rel="stylesheet" href="../style.css">
+<meta property="og:title" content="FLY ON ポイント到達コスト試算ツール｜旅ステータスラボ">
+<meta property="og:description" content="目標ステータスまであと何便・いくらか。現在のFOPと1便の条件から、必要便数とFOP単価を試算します。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://travel.globe-ent.com/tools/fop-cost.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+</head>
+<body>
+<header class="site">
+  <div class="name"><a href="../index.html">旅ステータスラボ</a></div>
+  <nav class="main">
+    <a href="../articles.html">記事一覧</a>
+    <a href="mile-value.html">計算ツール</a>
+  </nav>
+</header>
+<main>
+  <h1>FLY ON ポイント到達コスト試算ツール</h1>
+  <p>JALのステータスは、その年（1月〜12月）のFLY ON ポイント（FOP）で決まります。このツールは、<strong>目標ステータスまであと何便乗ればよいか、その運賃総額とFOP単価はいくらか</strong>を試算します。制度の全体像は<a href="../articles/jgc-nyukai-joken.html">JGCの入会条件の記事</a>、到達にかける金額の判断軸は<a href="../articles/status-iji-handan.html">ステータス維持の判断の記事</a>で整理しています。</p>
+
+  <label>目標ステータス
+    <select id="tier">
+      <option value="crystal">JMBクリスタル（30,000 FOP）</option>
+      <option value="sapphire" selected>JMBサファイア（50,000 FOP）</option>
+      <option value="premier">JGCプレミア（80,000 FOP・JGC会員のみ）</option>
+      <option value="diamond">JMBダイヤモンド（100,000 FOP）</option>
+    </select>
+  </label>
+  <label>現在のFLY ON ポイント（今年の累計）
+    <input type="number" id="curFop" inputmode="numeric" placeholder="例：32000">
+  </label>
+  <label>現在のFLY ON ポイントのうち、JALグループ便で獲得した分
+    <input type="number" id="curJal" inputmode="numeric" placeholder="例：20000">
+  </label>
+  <label>想定する1便（片道）のフライトマイル（区間マイル）
+    <input type="number" id="miles" inputmode="numeric" placeholder="例：984（東京〜那覇の区間マイル）">
+  </label>
+  <label>運賃のマイル積算率
+    <select id="rate">
+      <option value="1.5">150%</option>
+      <option value="1.25">125%</option>
+      <option value="1" selected>100%</option>
+      <option value="0.75">75%</option>
+      <option value="0.7">70%</option>
+      <option value="0.5">50%</option>
+      <option value="0.3">30%</option>
+    </select>
+  </label>
+  <label>路線の種類（FLY ON ポイント換算率）
+    <select id="mult">
+      <option value="2" selected>国内線（×2）</option>
+      <option value="1.5">アジア・オセアニア線（×1.5）</option>
+      <option value="1">その他の国際線（×1）</option>
+    </select>
+  </label>
+  <label>1便あたりの搭乗ボーナスFOP（運賃により0〜400。分からなければ0で保守的に試算）
+    <input type="number" id="bonus" inputmode="numeric" placeholder="例：0" value="0">
+  </label>
+  <label>1便（片道）の運賃（任意：入れると総額とFOP単価が出ます）（円）
+    <input type="number" id="fare" inputmode="numeric" placeholder="例：15000">
+  </label>
+  <label>年末までの残り月数
+    <input type="number" id="months" inputmode="decimal" step="0.1">
+  </label>
+  <button class="calc" onclick="calc()">計算する</button>
+
+  <div class="result" id="result">
+    <div>目標まで不足しているFLY ON ポイント</div>
+    <div class="big" id="needOut">—</div>
+    <p id="perFlight"></p>
+    <p id="pace"></p>
+    <p id="costLine"></p>
+    <p id="altRoute"></p>
+    <div class="gauge" style="margin-top:12px">
+      <div class="bar"><div class="seg" style="width:100%;background:#dbe4ee"></div></div>
+      <div class="track"><div class="mark" id="gmark"></div></div>
+      <div class="cap"><span>0</span><span>現在のFOP</span><span>目標</span></div>
+    </div>
+  </div>
+
+  <h2>ステータスの基準（2026年の搭乗実績に対する基準）</h2>
+  <table>
+  <tr><th>ステータス</th><th>FOP基準</th><th>搭乗回数基準</th></tr>
+  <tr><td>JMBクリスタル</td><td>30,000 FOP（うちJALグループ便 15,000）</td><td>30回（うちJALグループ便 15回）かつ 10,000 FOP</td></tr>
+  <tr><td>JMBサファイア</td><td>50,000 FOP（うちJALグループ便 25,000）</td><td>50回（うちJALグループ便 25回）かつ 15,000 FOP</td></tr>
+  <tr><td>JGCプレミア（JGC会員のみ）</td><td>80,000 FOP（うちJALグループ便 40,000）</td><td>80回（うちJALグループ便 40回）かつ 25,000 FOP</td></tr>
+  <tr><td>JMBダイヤモンド</td><td>100,000 FOP（うちJALグループ便 50,000）</td><td>120回（うちJALグループ便 60回）かつ 35,000 FOP</td></tr>
+  </table>
+  <p class="src">出典：JAL公式サイト「FLY ON プログラム」（2026年11月8日確認）。2027年1月1日搭乗分からは、JGCプレミアが「JMBプレミア」に名称変更され、達成条件も変更される予定とJALから案内されています。2027年以降の試算では、最新の公式情報を確認してください。</p>
+
+  <h2>計算式と前提</h2>
+  <ul>
+    <li>1便のFOP ＝ 区間マイル × 積算率（小数切り捨て）× 換算率 ＋ 搭乗ボーナスFOP。実際のFOPは運賃クラスや路線で変わるため、このツールの結果は概算です。</li>
+    <li>必要便数は、不足FOP（全体）と不足FOP（JALグループ便分）の両方を満たす便数で計算しています。今後の搭乗はすべてJALグループ便という前提です。</li>
+    <li>FOP単価 ＝ 片道運賃 ÷ 1便のFOP。「あと何便か」の判断には、単価とあわせて<a href="../articles/status-iji-handan.html">ステータス維持にいくらまで払うかの枠組み</a>をあわせて確認してください。</li>
+    <li>入力した数値はサーバーに送信されません（ブラウザ内で計算しています）。</li>
+  </ul>
+<div class="share"><span>このページを共有：</span><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftravel.globe-ent.com%2Ftools%2Ffop-cost.html&text=FLY%20ON%20%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%E5%88%B0%E9%81%94%E3%82%B3%E3%82%B9%E3%83%88%E8%A9%A6%E7%AE%97%E3%83%84%E3%83%BC%E3%83%AB%EF%BD%9C%E6%97%85%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9%E3%83%A9%E3%83%9C" target="_blank" rel="noopener">X</a><a href="https://b.hatena.ne.jp/entry/https://travel.globe-ent.com/tools/fop-cost.html" target="_blank" rel="noopener">はてなブックマークに追加</a><a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Ftravel.globe-ent.com%2Ftools%2Ffop-cost.html" target="_blank" rel="noopener">LINE</a><a href="https://getpocket.com/edit?url=https%3A%2F%2Ftravel.globe-ent.com%2Ftools%2Ffop-cost.html" target="_blank" rel="noopener">Pocket</a></div>
+</main>
+<footer class="site">
+  <a href="../about.html">運営者情報・広告方針</a><a href="../privacy.html">プライバシーポリシー</a><a href="../contact.html">お問い合わせ</a>
+  <div class="sister">姉妹サービス（検証中）：<a href="https://ouen.globe-ent.com/">OUEN ― 応援したい気持ちを、届けよう。</a></div>
+  <div>© 旅ステータスラボ</div>
+</footer>
+<script>
+var TIERS = {
+  crystal:  {fop:30000, jal:15000, flights:30, flightsJal:15, flightsFop:10000, name:'JMBクリスタル'},
+  sapphire: {fop:50000, jal:25000, flights:50, flightsJal:25, flightsFop:15000, name:'JMBサファイア'},
+  premier:  {fop:80000, jal:40000, flights:80, flightsJal:40, flightsFop:25000, name:'JGCプレミア'},
+  diamond:  {fop:100000, jal:50000, flights:120, flightsJal:60, flightsFop:35000, name:'JMBダイヤモンド'}
+};
+function fmt(n){ return n.toLocaleString('ja-JP'); }
+(function(){
+  var now = new Date();
+  var monthsLeft = 12 - now.getMonth() - (now.getDate() > 1 ? (now.getDate()-1)/31 : 0);
+  document.getElementById('months').value = Math.max(0.1, monthsLeft).toFixed(1);
+})();
+function calc(){
+  var t = TIERS[document.getElementById('tier').value];
+  var cur = parseFloat(document.getElementById('curFop').value) || 0;
+  var curJal = parseFloat(document.getElementById('curJal').value) || 0;
+  var miles = parseFloat(document.getElementById('miles').value);
+  var rate = parseFloat(document.getElementById('rate').value);
+  var mult = parseFloat(document.getElementById('mult').value);
+  var bonus = parseFloat(document.getElementById('bonus').value) || 0;
+  var fare = parseFloat(document.getElementById('fare').value);
+  var months = parseFloat(document.getElementById('months').value);
+  if(!miles || miles <= 0){ alert('1便のフライトマイルを入力してください。'); return; }
+  var per = Math.floor(miles * rate) * mult + bonus;
+  var need = Math.max(0, t.fop - cur);
+  var needJal = Math.max(0, t.jal - curJal);
+  var box = document.getElementById('result');
+  document.getElementById('needOut').textContent = fmt(need) + ' FOP（うちJALグループ便 ' + fmt(needJal) + ' FOP）';
+  var pf = '想定する1便のFOPは ' + fmt(per) + ' です。';
+  var pace = '';
+  var cost = '';
+  if(need <= 0 && needJal <= 0){
+    pace = 'すでに' + t.name + 'の基準に達しています。';
+  } else {
+    var flights = Math.ceil(Math.max(need, needJal) / per);
+    var trips = Math.ceil(flights / 2);
+    pf += ' あと ' + fmt(flights) + ' 便（往復換算で約 ' + fmt(trips) + ' 往復）が必要です。';
+    if(months && months > 0){
+      pace = '残り ' + months + ' か月では、月あたり約 ' + (flights/months).toFixed(1) + ' 便（約 ' + (trips/months).toFixed(1) + ' 往復）のペースになります。';
+    }
+    if(fare && fare > 0){
+      cost = '運賃総額の目安は約 ' + fmt(flights * fare) + ' 円、FOP単価は約 ' + (fare/per).toFixed(1) + ' 円／FOP です。';
+    }
+  }
+  document.getElementById('perFlight').textContent = pf;
+  document.getElementById('pace').textContent = pace;
+  document.getElementById('costLine').textContent = cost;
+  document.getElementById('altRoute').textContent = '参考：搭乗回数で達成するルートでは、' + t.name + 'は ' + t.flights + ' 回（うちJALグループ便 ' + t.flightsJal + ' 回）かつ ' + fmt(t.flightsFop) + ' FOP が基準です。短い区間を多く飛ぶ場合は、こちらのルートが先に届くことがあります。';
+  var gm = document.getElementById('gmark');
+  gm.style.display = 'block';
+  gm.style.left = Math.min(100, cur / t.fop * 100) + '%';
+  box.style.display = 'block';
+}
+</script>
+</body>
+</html>
