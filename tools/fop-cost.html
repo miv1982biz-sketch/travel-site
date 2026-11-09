@@ -6,11 +6,15 @@
 <title>FLY ON ポイント到達コスト試算ツール｜旅ステータスラボ</title>
 <meta name="description" content="JALのFLY ON ポイント（FOP）で目標ステータスまであと何便・いくらかかるかを試算します。現在のFOPと想定する1便の条件を入れると、不足FOP、必要便数、月あたりの搭乗ペース、FOP単価が出ます。基準はJAL公式のFLY ON プログラムで2026年11月8日に確認しました。">
 <link rel="stylesheet" href="../style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@700&display=swap" rel="stylesheet">
 <meta property="og:title" content="FLY ON ポイント到達コスト試算ツール｜旅ステータスラボ">
 <meta property="og:description" content="目標ステータスまであと何便・いくらか。現在のFOPと1便の条件から、必要便数とFOP単価を試算します。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://travel.globe-ent.com/tools/fop-cost.html">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://travel.globe-ent.com/img/lounge.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 </head>
 <body>
@@ -23,6 +27,7 @@
 </header>
 <main>
   <h1>FLY ON ポイント到達コスト試算ツール</h1>
+  <p class="dateline">公開日：2026年11月8日｜最終更新日：2026年11月8日｜<span class="kdate">情報確認日：2026年11月8日</span>（JAL公式サイト）</p>
   <p>JALのステータスは、その年（1月〜12月）のFLY ON ポイント（FOP）で決まります。このツールは、<strong>目標ステータスまであと何便乗ればよいか、その運賃総額とFOP単価はいくらか</strong>を試算します。制度の全体像は<a href="../articles/jgc-nyukai-joken.html">JGCの入会条件の記事</a>、到達にかける金額の判断軸は<a href="../articles/status-iji-handan.html">ステータス維持の判断の記事</a>で整理しています。</p>
 
   <label>目標ステータス
@@ -79,7 +84,7 @@
     <p id="costLine"></p>
     <p id="altRoute"></p>
     <div class="gauge" style="margin-top:12px">
-      <div class="bar"><div class="seg" style="width:100%;background:#dbe4ee"></div></div>
+      <div class="bar"><div class="seg" style="width:100%;background:#DCE6EE"></div></div>
       <div class="track"><div class="mark" id="gmark"></div></div>
       <div class="cap"><span>0</span><span>現在のFOP</span><span>目標</span></div>
     </div>
