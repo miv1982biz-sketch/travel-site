@@ -61,6 +61,7 @@ th { background:var(--soft); font-weight:700; }
 tbody tr:nth-child(even) td, table tr:nth-child(even) td { background:#FBFCFD; }
 @media (max-width:640px) {
   table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  table th:first-child, table td:first-child { min-width:6.5em; }
   .lead { font-size:21px; }
   h1 { font-size:22px; }
 }
