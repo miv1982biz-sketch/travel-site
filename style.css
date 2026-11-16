@@ -213,6 +213,23 @@ a.thumbrow:hover .t { color:var(--accent); }
 .adbox{border:1.5px solid var(--accent);border-radius:12px;padding:18px;margin:36px 0;text-align:center}
 .adbox .src{text-align:left}
 .adbox img{max-width:100%;height:auto}
+/* 商品棚（カード形式の広告枠） */
+.shelfbox{border:1.5px solid var(--accent);border-radius:12px;padding:18px;margin:36px 0}
+.shelfbox .src{text-align:left}
+.shelfbox h3{margin:20px 0 4px}
+.shelfbox h3:first-of-type{margin-top:10px}
+.shelf{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:12px 0 8px}
+@media (max-width:700px){.shelf{grid-template-columns:1fr}}
+.prod{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;display:flex;flex-direction:column;text-align:left}
+.prod .pimg{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.prod .pimg.fit{aspect-ratio:auto;object-fit:contain;max-height:280px}
+.prod .pb{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.prod .pn{font-weight:700;font-size:16px;color:var(--ink);line-height:1.5}
+.prod ul{margin:0;padding-left:1.25em;font-size:13.5px;color:var(--sub);line-height:1.85}
+.prod .cta{margin-top:auto;display:block;text-align:center;background:var(--accent);color:#fff;font-weight:700;font-size:14.5px;line-height:1.6;padding:11px 12px;border-radius:8px;text-decoration:none}
+.prod .cta:hover{background:var(--accent-dark)}
+.prod .pbanner{text-align:center;margin-top:auto}
+.prod .pbanner img{max-width:100%;height:auto}
 
 .share{margin:40px 0 8px;padding:14px 0;border-top:1px solid var(--line);font-size:14px}
 .share a{margin-right:14px}
