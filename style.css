@@ -63,7 +63,7 @@ p.intro { font-size:17.5px; line-height:2.05; margin:20px 0 8px; }
 /* 旧ヒーロー（互換のため残す） */
 .hero { margin:6px 0 30px; }
 .hero .hero-img { position:relative; border-radius:18px; overflow:hidden; }
-.hero .hero-img img { width:100%; display:block; aspect-ratio:16/8.2; object-fit:cover; }
+.hero .hero-img img { width:100%; height:auto; display:block; aspect-ratio:16/8.2; object-fit:cover; }
 .hero .hero-txt { position:absolute; left:0; right:0; bottom:0; padding:52px 30px 24px; background:linear-gradient(to top, rgba(10,32,48,.72), rgba(10,32,48,0)); color:#fff; }
 .hero .hero-txt .lead { color:#fff; margin:0 0 4px; text-shadow:0 1px 8px rgba(10,32,48,.45); }
 .hero .hero-txt .sublead { color:rgba(255,255,255,.92); margin:0; }
@@ -116,7 +116,7 @@ a.card:hover .t { color:var(--accent); }
 @media (max-width:700px) { .cardgrid { grid-template-columns:1fr; } }
 a.pcard, .pcard { display:block; border:1px solid var(--line); border-radius:16px; overflow:hidden; background:#fff; text-decoration:none; color:inherit; box-shadow:0 2px 8px rgba(23,34,43,.06); margin:0; padding:0; }
 a.pcard:hover { border-color:var(--accent); box-shadow:0 8px 24px rgba(20,72,110,.14); }
-.pcard img { width:100%; display:block; aspect-ratio:16/10; object-fit:cover; }
+.pcard img { width:100%; height:auto; display:block; aspect-ratio:16/10; object-fit:cover; }
 .pcard .pc-body { display:block; padding:18px 20px 20px; }
 .pcard .t { display:block; font-weight:700; font-size:16.5px; color:var(--ink); line-height:1.65; }
 a.pcard:hover .t { color:var(--accent); }
@@ -167,7 +167,7 @@ footer.site .sister{margin-top:10px;font-size:13px;}
 
 /* 実写＋明細欄（従来互換のため残す） */
 .feature { margin:18px 0 22px; }
-.feature img { width:100%; display:block; aspect-ratio:16/9; object-fit:cover; border:1px solid var(--line); border-bottom:none; border-radius:14px 14px 0 0; }
+.feature img { width:100%; height:auto; display:block; aspect-ratio:16/9; object-fit:cover; border:1px solid var(--line); border-bottom:none; border-radius:14px 14px 0 0; }
 .feature .cap { border:1px solid var(--ink); display:grid; grid-template-columns:repeat(3,1fr); }
 .feature .cap > div { padding:12px 16px 14px; border-left:1px solid var(--line); }
 .feature .cap > div:first-child { border-left:none; }
@@ -184,9 +184,9 @@ figure { margin:28px 0; }
 figure img { width:100%; height:auto; display:block; }
 figcaption { font-size:12.5px; color:var(--sub); padding:8px 4px 0; line-height:1.7; }
 figure.secimg { margin:40px 0; }
-figure.secimg img { border-radius:16px; aspect-ratio:16/9; object-fit:cover; }
+figure.secimg img { height:auto; border-radius:16px; aspect-ratio:16/9; object-fit:cover; }
 figure.leadimg { margin:26px 0 34px; }
-figure.leadimg img { border-radius:18px; aspect-ratio:16/8.6; object-fit:cover; }
+figure.leadimg img { height:auto; border-radius:18px; aspect-ratio:16/8.6; object-fit:cover; }
 @media (min-width:1100px) {
   figure.secimg { width:calc(100% + 88px); margin-left:-44px; }
   figure.leadimg { width:calc(100% + 168px); margin-left:-84px; }
@@ -223,7 +223,7 @@ a.thumbrow:hover .t { color:var(--accent); }
 .shelf{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:12px 0 8px}
 @media (max-width:700px){.shelf{grid-template-columns:1fr}}
 .prod{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;display:flex;flex-direction:column;text-align:left}
-.prod .pimg{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+.prod .pimg{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover}
 .prod .pimg.fit{aspect-ratio:auto;object-fit:contain;max-height:280px}
 .prod .pb{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
 .prod .pn{font-weight:700;font-size:16px;color:var(--ink);line-height:1.5}
@@ -235,3 +235,50 @@ a.thumbrow:hover .t { color:var(--accent); }
 
 .share{margin:40px 0 8px;padding:14px 0;border-top:1px solid var(--line);font-size:14px}
 .share a{margin-right:14px}
+
+/* ===== フェーズ2（2026-11-20）トップ・記事一覧の構造部品 =====
+   クラス名は t 接頭辞でスコープし、既存部品（.shelf 等の汎用名）を再定義しない。
+   基調色は新ロゴ正本の紺 #0E3A5C／金 #CE9F45（BRAND.md）。 */
+:root { --navy-b:#0E3A5C; --gold-b:#CE9F45; --gold-ink:#6D5212; --gold-bg:#FBF6E9; }
+
+/* アンカー先が固定ヘッダーに隠れないための余白 */
+.tscroll { scroll-margin-top:150px; }
+section.cluster { scroll-margin-top:150px; }
+
+/* ピル型クイックリンク（ヒーロー直下の入口） */
+.tqpills { display:flex; flex-wrap:wrap; gap:8px; margin:20px 0 4px; }
+.tqpills a { display:inline-block; padding:8px 16px; border:1.5px solid var(--navy-b); border-radius:999px; color:var(--navy-b); font-weight:700; font-size:14px; line-height:1.5; text-decoration:none; background:#fff; }
+.tqpills a:hover { background:var(--navy-b); color:#fff; }
+.tqpills a.tgold { border-color:var(--gold-b); background:var(--gold-bg); color:var(--gold-ink); }
+.tqpills a.tgold:hover { background:var(--gold-b); color:#fff; }
+
+/* 日付つきお知らせ（細い帯） */
+.tnotice { border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:10px 2px; margin:18px 0 4px; font-size:14px; line-height:1.7; }
+.tnotice .trow { display:flex; gap:14px; padding:2px 0; }
+.tnotice .td { flex:none; color:var(--gold-ink); font-weight:700; font-variant-numeric:tabular-nums; }
+.tnotice a { color:var(--ink); text-decoration:none; }
+.tnotice a:hover { color:var(--navy-b); text-decoration:underline; }
+
+/* 場面タイルの棚（写真＋場面名＋1行） */
+.tscene { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin:22px 0 10px; }
+a.tscene-tile { position:relative; display:block; border-radius:16px; overflow:hidden; text-decoration:none; box-shadow:0 2px 10px rgba(14,58,92,.14); aspect-ratio:16/10; background:var(--navy-b); }
+a.tscene-tile:hover { box-shadow:0 8px 26px rgba(14,58,92,.24); }
+.tscene-tile img { position:absolute; inset:0; width:100%; height:100%; display:block; object-fit:cover; }
+.tscene-tile .tcap { position:absolute; left:0; right:0; bottom:0; padding:40px 18px 14px; background:linear-gradient(to top, rgba(9,30,46,.85), rgba(9,30,46,0)); color:#fff; }
+.tscene-tile .ts { display:block; font-family:var(--serif); font-weight:700; font-size:19px; line-height:1.45; }
+.tscene-tile .tw { display:block; font-size:12.5px; line-height:1.65; color:rgba(255,255,255,.93); margin-top:2px; }
+@media (max-width:640px) {
+  .tscene { gap:12px; }
+  .tscene-tile .ts { font-size:15.5px; }
+  .tscene-tile .tw { font-size:11.5px; }
+  .tscene-tile .tcap { padding:30px 12px 10px; }
+}
+
+/* 番号カードの棚（扱いの変化） */
+.tsteps { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin:20px 0 8px; }
+.tstep { display:flex; gap:14px; border:1px solid var(--line); border-radius:14px; padding:18px 20px; background:#fff; box-shadow:0 1px 3px rgba(23,34,43,.05); }
+.tstep .tn { flex:none; width:34px; height:34px; border-radius:50%; background:var(--gold-b); color:#fff; font-weight:700; font-size:16px; display:flex; align-items:center; justify-content:center; margin-top:2px; }
+.tstep .tt { display:block; font-weight:700; font-size:16.5px; line-height:1.55; color:var(--ink); }
+.tstep .td2 { display:block; color:var(--sub); font-size:14px; line-height:1.85; margin-top:4px; }
+.tstep .td2 a { font-weight:700; }
+@media (max-width:640px) { .tsteps { grid-template-columns:1fr; } }

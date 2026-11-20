@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>記事一覧｜旅ステータスラボ</title>
 <meta name="description" content="旅ステータスラボの記事一覧。ステータス制度・修行、特典航空券・マイルの使い方などのカテゴリ別に、キーワードで絞り込みもできます。">
-<link rel="stylesheet" href="style.css?v=20261120-r1">
+<link rel="stylesheet" href="style.css?v=20261120-r2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@700&display=swap" rel="stylesheet">
@@ -38,42 +38,20 @@
 </header>
 <main>
   <h1>記事一覧</h1>
-  <p>カテゴリ別に並べています。キーワードで絞り込むこともできます。</p>
+  <p>泊まる時間の場面と、テーマ別に並べています。キーワードで絞り込むこともできます。</p>
+  <nav class="tqpills" aria-label="テーマから探す">
+    <a href="#hotels">朝食・ラウンジ・眺め（ホテル）</a>
+    <a href="#status">ステータス制度を確認</a>
+    <a href="#miles">マイルを使う</a>
+    <a href="#practical">旅の実務</a>
+    <a href="#tools" class="tgold">計算ツール</a>
+  </nav>
   <div class="searchbox">
     <input type="search" id="q" placeholder="キーワードで記事を探す（例：JGC）" aria-label="記事を検索">
     <p class="src" id="count"></p>
   </div>
 
-  <section class="cluster">
-    <p class="seclabel">Status & Training</p>
-<h2>ステータス制度・修行</h2>
-    <div class="cardgrid">
-    <a class="card pcard" href="articles/jgc-nyukai-joken.html" data-kw="JAL JGC Life Status ポイント 入会条件 サファイア FLY ON"><img src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1200&q=80" alt="空港ラウンジ"><span class="pc-body"><span class="txt">
-      <strong>JGCの入会条件は今どうなっているか — Life Status 1,500ポイントとFLY ONの違い</strong>
-      <span>現在の入会資格、Starグレード、手続きの流れ、よくある誤解までを公式情報で確認しました。</span>
-      <span class="src">制度確認｜2026年11月5日</span></span>
-    </span></a>
-    <a class="card pcard" href="articles/status-iji-handan.html" data-kw="ステータス 維持 判断 FOP 修行 サファイア 残り単価 年末"><img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80" alt="ホテルの客室"><span class="pc-body"><span class="txt">
-      <strong>ステータス維持に「あといくらまで」なら払ってよいか — 判断の枠組み</strong>
-      <span>メリットの金額換算と「残り単価」で決める方法を、モデルケースの実数つきで整理しました。</span>
-      <span class="src">判断の枠組み｜2026年11月5日</span></span>
-    </span></a>
-    </div>
-  </section>
-
-  <section class="cluster">
-    <p class="seclabel">Award Tickets & Miles</p>
-<h2>特典航空券・マイル</h2>
-    <div class="cardgrid">
-    <a class="card pcard" href="articles/mile-value-keisan.html" data-kw="マイル 価値 特典航空券 計算 お得 獲得コスト"><img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80" alt="機内から見た主翼"><span class="pc-body"><span class="txt">
-      <strong>特典航空券は本当にお得か — 1マイルの価値を計算する方法</strong>
-      <span>計算式、具体例、自分の獲得コストの出し方、よくある失敗まで。計算ツールにそのままつながります。</span>
-      <span class="src">費用試算｜2026年11月5日</span></span>
-    </span></a>
-    </div>
-  </section>
-
-  <section class="cluster">
+  <section class="cluster" id="hotels">
     <p class="seclabel">Hotels</p>
 <h2>ホテルステータス・宿泊</h2>
     <div class="cardgrid">
@@ -89,8 +67,34 @@
     </span></a>
     </div>
   </section>
-
-  <section class="cluster">
+  <section class="cluster" id="status">
+    <p class="seclabel">Status & Training</p>
+<h2>ステータス制度・修行</h2>
+    <div class="cardgrid">
+    <a class="card pcard" href="articles/jgc-nyukai-joken.html" data-kw="JAL JGC Life Status ポイント 入会条件 サファイア FLY ON"><img src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1200&q=80" alt="空港ラウンジ"><span class="pc-body"><span class="txt">
+      <strong>JGCの入会条件は今どうなっているか — Life Status 1,500ポイントとFLY ONの違い</strong>
+      <span>現在の入会資格、Starグレード、手続きの流れ、よくある誤解までを公式情報で確認しました。</span>
+      <span class="src">制度確認｜2026年11月5日</span></span>
+    </span></a>
+    <a class="card pcard" href="articles/status-iji-handan.html" data-kw="ステータス 維持 判断 FOP 修行 サファイア 残り単価 年末"><img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80" alt="ホテルの客室"><span class="pc-body"><span class="txt">
+      <strong>ステータス維持に「あといくらまで」なら払ってよいか — 判断の枠組み</strong>
+      <span>メリットの金額換算と「残り単価」で決める方法を、モデルケースの実数つきで整理しました。</span>
+      <span class="src">判断の枠組み｜2026年11月5日</span></span>
+    </span></a>
+    </div>
+  </section>
+  <section class="cluster" id="miles">
+    <p class="seclabel">Award Tickets & Miles</p>
+<h2>特典航空券・マイル</h2>
+    <div class="cardgrid">
+    <a class="card pcard" href="articles/mile-value-keisan.html" data-kw="マイル 価値 特典航空券 計算 お得 獲得コスト"><img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80" alt="機内から見た主翼"><span class="pc-body"><span class="txt">
+      <strong>特典航空券は本当にお得か — 1マイルの価値を計算する方法</strong>
+      <span>計算式、具体例、自分の獲得コストの出し方、よくある失敗まで。計算ツールにそのままつながります。</span>
+      <span class="src">費用試算｜2026年11月5日</span></span>
+    </span></a>
+    </div>
+  </section>
+  <section class="cluster" id="practical">
     <p class="seclabel">Travel Practicalities</p>
 <h2>旅の実務</h2>
     <div class="cardgrid">
@@ -125,6 +129,15 @@
   </section>
 
   <p class="src" id="noresult" style="display:none">該当する記事がありません。キーワードを変えてお試しください。</p>
+
+  <section id="tools" class="tscroll">
+    <p class="seclabel">Tools</p>
+    <h2>計算ツール</h2>
+    <div class="cardgrid">
+    <a class="pcard" href="tools/mile-value.html"><img width="1200" height="800" src="img/wing.jpg" alt="機内から見た主翼" loading="lazy"><span class="pc-body"><span class="t">マイル価値の計算ツール</span><span class="d">必要マイルと現金価格を入れるだけで、1マイルあたりの価値と損得の目安が出ます。結果はバンド図でも表示します。</span></span></a>
+    <a class="pcard" href="tools/fop-cost.html"><img width="1200" height="800" src="img/lounge.jpg" alt="空港ラウンジ" loading="lazy"><span class="pc-body"><span class="t">FLY ON ポイント到達コスト試算ツール</span><span class="d">試算：目標ステータスまであと何便・いくらか。不足FOP、必要便数、月あたりのペース、FOP単価が出ます。</span></span></a>
+    </div>
+  </section>
 </main>
 <footer class="site">
   <a href="about.html">運営者情報・広告方針</a><a href="privacy.html">プライバシーポリシー</a><a href="contact.html">お問い合わせ</a>
