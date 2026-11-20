@@ -15,6 +15,8 @@ img { max-width:100%; }
 header.site { position:sticky; top:0; z-index:10; background:rgba(255,255,255,.97); border-bottom:1px solid var(--line); box-shadow:0 1px 10px rgba(20,72,110,.05); padding:14px 20px; }
 header.site .name { font-family:var(--serif); font-size:22px; font-weight:700; letter-spacing:.04em; }
 header.site .name a { color:inherit; text-decoration:none; display:inline-block; padding:6px 0; }
+header.site .name .logo-lockup { height:46px; width:auto; display:block; }
+@media (max-width:640px) { header.site .name .logo-lockup { height:38px; } }
 header.site .tag { color:var(--sub); font-size:13px; }
 nav.main { margin-top:6px; font-size:14.5px; }
 nav.main a { margin-right:18px; color:var(--accent); text-decoration:none; font-weight:600; display:inline-block; padding:10px 2px; }
