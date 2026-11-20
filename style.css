@@ -228,8 +228,8 @@ a.thumbrow:hover .t { color:var(--accent); }
 .prod .pb{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
 .prod .pn{font-weight:700;font-size:16px;color:var(--ink);line-height:1.5}
 .prod ul{margin:0;padding-left:1.25em;font-size:13.5px;color:var(--sub);line-height:1.85}
-.prod .cta{margin-top:auto;display:block;text-align:center;background:var(--accent);color:#fff;font-weight:700;font-size:14.5px;line-height:1.6;padding:11px 12px;border-radius:8px;text-decoration:none}
-.prod .cta:hover{background:var(--accent-dark)}
+.prod .cta{margin-top:auto;display:block;text-align:center;background:var(--navy-b);color:#fff;font-weight:700;font-size:14.5px;line-height:1.6;padding:11px 12px;border-radius:8px;text-decoration:none}
+.prod .cta:hover{background:#0A2C46}
 .prod .pbanner{text-align:center;margin-top:auto}
 .prod .pbanner img{max-width:100%;height:auto}
 
@@ -282,3 +282,17 @@ a.tscene-tile:hover { box-shadow:0 8px 26px rgba(14,58,92,.24); }
 .tstep .td2 { display:block; color:var(--sub); font-size:14px; line-height:1.85; margin-top:4px; }
 .tstep .td2 a { font-weight:700; }
 @media (max-width:640px) { .tsteps { grid-template-columns:1fr; } }
+
+/* ===== フェーズ3（2026-11-20）記事CTAの統一部品 =====
+   記事単体のCTA（公式申込リンク・計算ツールへの導線）はこの部品に統一する。
+   棚内ボタン .prod .cta と同じ新ブランド紺 #0E3A5C をCTAの面に使い、
+   本文リンク・見出しにはこの面の使い方をしない。 */
+/* --navy-b はフェーズ2の :root で定義済み（#0E3A5C） */
+.cta-btn { display:flex; align-items:center; justify-content:center; gap:8px; background:var(--navy-b); color:#fff; font-weight:700; font-size:16.5px; line-height:1.5; text-decoration:none; border-radius:10px; padding:16px 20px; min-height:56px; max-width:480px; margin:0 auto; box-shadow:0 2px 10px rgba(14,58,92,.18); }
+.cta-btn:hover { background:#0A2C46; }
+.adbox .cta-btn { margin:12px auto; }
+.acta { margin:40px 0; text-align:center; }
+.acta .lead-in { font-size:15.5px; font-weight:700; margin:0 0 12px; line-height:1.8; }
+.acta .micro { font-size:13px; color:var(--sub); margin:10px 0 0; line-height:1.85; }
+.prod .micro { font-size:12.5px; color:var(--sub); margin:2px 0 0; line-height:1.8; }
+@media (max-width:640px) { .cta-btn { max-width:none; } }
